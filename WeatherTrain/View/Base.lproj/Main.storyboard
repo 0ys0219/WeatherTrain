@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -39,13 +40,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="起站" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sow-p4-hri">
                                 <rect key="frame" x="55" y="112" width="35" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" name="AccentColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="到站" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbR-Db-euS">
                                 <rect key="frame" x="303" y="112" width="35" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" name="AccentColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLP-gv-xj9">
@@ -56,10 +57,32 @@
                                     <action selector="switchStationPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jhn-2p-hKd"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2023年2月13日 17點50分 出發" borderStyle="bezel" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZvO-03-bP6">
+                                <rect key="frame" x="58" y="254" width="277" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="277" id="SWy-Md-bCu"/>
+                                    <constraint firstAttribute="height" constant="50" id="mMs-wd-Ix3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I5Z-gL-M5F">
+                                <rect key="frame" x="118.66666666666669" y="312" width="156" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="156" id="KDr-fZ-IwP"/>
+                                    <constraint firstAttribute="height" constant="51" id="jNg-sX-ZWj"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" image="magnifyingglass" catalog="system" title="查詢時刻"/>
+                                <connections>
+                                    <action selector="searchTrainPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DQ5-os-O81"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="ZvO-03-bP6" firstAttribute="top" secondItem="Dmk-1b-kDv" secondAttribute="bottom" constant="33" id="4Ad-4Y-f92"/>
                             <constraint firstItem="Sow-p4-hri" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="55" id="6JD-3e-jCr"/>
                             <constraint firstItem="eLP-gv-xj9" firstAttribute="leading" secondItem="Dmk-1b-kDv" secondAttribute="trailing" constant="31" id="6Xz-aC-XET"/>
                             <constraint firstItem="xbR-Db-euS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="9" id="8yc-1s-Lf5"/>
@@ -70,14 +93,18 @@
                             <constraint firstItem="Sow-p4-hri" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="9" id="dAK-wp-ns1"/>
                             <constraint firstItem="eLP-gv-xj9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="42" id="dD8-Fv-3zC"/>
                             <constraint firstItem="49A-QM-iV8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Sow-p4-hri" secondAttribute="trailing" constant="8" symbolic="YES" id="dwJ-0M-9S7"/>
+                            <constraint firstItem="I5Z-gL-M5F" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ftz-FB-BHC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xbR-Db-euS" secondAttribute="trailing" constant="55" id="g6z-rA-Ce9"/>
+                            <constraint firstItem="I5Z-gL-M5F" firstAttribute="top" secondItem="ZvO-03-bP6" secondAttribute="bottom" constant="8" id="jny-Rw-BOW"/>
                             <constraint firstItem="Dmk-1b-kDv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="nb2-hv-B1D"/>
+                            <constraint firstItem="ZvO-03-bP6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="u0m-eP-yOb"/>
                             <constraint firstItem="49A-QM-iV8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="xOc-Xk-1ax"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Dar-gh-HWH"/>
                     <connections>
                         <outlet property="endTextField" destination="49A-QM-iV8" id="7V2-gL-uBt"/>
+                        <outlet property="leaveTimeTextField" destination="ZvO-03-bP6" id="5Pz-Ac-FCB"/>
                         <outlet property="startTextField" destination="Dmk-1b-kDv" id="PaR-63-Ub9"/>
                         <segue destination="KZW-ra-8yU" kind="show" identifier="goToTrainTime" id="Zwg-bz-rbh"/>
                     </connections>
@@ -135,6 +162,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
+        <namedColor name="AccentColor">
+            <color red="0.77584809064865112" green="0.33404338359832764" blue="0.23028363287448883" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

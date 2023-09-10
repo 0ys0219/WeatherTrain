@@ -11,11 +11,12 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var startTextField: UITextField!
     @IBOutlet weak var endTextField: UITextField!
+    @IBOutlet weak var leaveTimeTextField: UITextField!
     
   
     
     var pickerView = UIPickerView()
-    
+    var datePicker = UIDatePicker()
     
     let city = ["台北","新北","桃園"]
     let station = [["台北","萬華"],["板橋","樹林","鶯歌"],["桃園","中壢","楊梅","富岡"]]
@@ -25,6 +26,20 @@ class HomeViewController: UIViewController {
           
         pickerView.delegate = self
         pickerView.dataSource = self
+        
+        datePicker.datePickerMode = .dateAndTime
+        datePicker.minimumDate = .now
+        datePicker.date = .now
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.locale = Locale(identifier: "zh_GB")
+        datePicker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
+        
+        
+        leaveTimeTextField.backgroundColor = .secondarySystemBackground
+        leaveTimeTextField.inputView = datePicker
+        leaveTimeTextField.inputAccessoryView = createToolBar()
+        leaveTimeTextField.borderStyle = .roundedRect
+        
         
         startTextField.inputView = pickerView
         endTextField.inputView = pickerView
@@ -47,6 +62,14 @@ class HomeViewController: UIViewController {
         endTextField.text = startStation
     }
     
+    @IBAction func searchTrainPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToTrainTime", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? TrainTimeTableViewController {
+            
+        }
+    }
 }
 
 extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -92,20 +115,12 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         }
         
     }
-    @objc func donePicker() {
-        
-        startTextField.resignFirstResponder()
-        endTextField.resignFirstResponder()
-        
-    }
-    
-    
-    
+      
     func createToolBar() -> UIToolbar {
         var toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red: 142/255, green: 205/255, blue: 221/255, alpha: 1)
+        toolBar.tintColor = UIColor(red: 130/255, green: 150/255, blue: 255/255, alpha: 1)
         toolBar.sizeToFit()
         
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(donePicker))
@@ -118,4 +133,17 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return toolBar
     }
     
+    @objc func donePicker() {
+        view.endEditing(true)
+    }
+    
+    @objc func datePickerChanged() {
+        let calender = Calendar.current
+        let components = calender.dateComponents([.day,.month,.year,.hour,.minute],from: self.datePicker.date)
+        guard let year = components.year, let month = components.month, let day = components.day, let hour = components.hour, let minutes = components.minute else {
+            fatalError("時間有誤")
+        }
+        leaveTimeTextField.text = "\(year)年\(month)月\(day)日 \(hour)點\(minutes)分 出發"
+        
+    }
 }
