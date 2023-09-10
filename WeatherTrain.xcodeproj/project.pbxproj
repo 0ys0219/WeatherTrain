@@ -14,6 +14,8 @@
 		7B3FBB3E2AACB16A00E27CA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBB3D2AACB16A00E27CA1 /* Assets.xcassets */; };
 		7B3FBB412AACB16A00E27CA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBB3F2AACB16A00E27CA1 /* LaunchScreen.storyboard */; };
 		7B3FBB492AACB30400E27CA1 /* TrainTimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3FBB482AACB30400E27CA1 /* TrainTimeTableViewController.swift */; };
+		7BDC9F762AAE29F400D97E2A /* TrainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC9F752AAE29F400D97E2A /* TrainData.swift */; };
+		7BDC9F782AAE3C7300D97E2A /* TrainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC9F772AAE3C7300D97E2A /* TrainManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		7B3FBB402AACB16A00E27CA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B3FBB422AACB16A00E27CA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B3FBB482AACB30400E27CA1 /* TrainTimeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTimeTableViewController.swift; sourceTree = "<group>"; };
+		7BDC9F752AAE29F400D97E2A /* TrainData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainData.swift; sourceTree = "<group>"; };
+		7BDC9F772AAE3C7300D97E2A /* TrainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 		7B3FBB4C2AACB32300E27CA1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7BDC9F752AAE29F400D97E2A /* TrainData.swift */,
+				7BDC9F772AAE3C7300D97E2A /* TrainManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -167,7 +173,9 @@
 			files = (
 				7B3FBB392AACB16800E27CA1 /* HomeViewController.swift in Sources */,
 				7B3FBB492AACB30400E27CA1 /* TrainTimeTableViewController.swift in Sources */,
+				7BDC9F762AAE29F400D97E2A /* TrainData.swift in Sources */,
 				7B3FBB352AACB16800E27CA1 /* AppDelegate.swift in Sources */,
+				7BDC9F782AAE3C7300D97E2A /* TrainManager.swift in Sources */,
 				7B3FBB372AACB16800E27CA1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

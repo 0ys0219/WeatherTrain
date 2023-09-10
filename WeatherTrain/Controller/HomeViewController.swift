@@ -23,7 +23,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-          
+                
+
         pickerView.delegate = self
         pickerView.dataSource = self
         
@@ -67,7 +68,9 @@ class HomeViewController: UIViewController {
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? TrainTimeTableViewController {
-            
+//            let s = TrainManager()
+//            s.getToken()
+//            destinationVC.text = 
         }
     }
 }
