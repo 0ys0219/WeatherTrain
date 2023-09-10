@@ -15,34 +15,21 @@ class HomeViewController: UIViewController {
   
     
     var pickerView = UIPickerView()
-    var toolBar = UIToolbar()
+    
     
     let city = ["台北","新北","桃園"]
     let station = [["台北","萬華"],["板橋","樹林","鶯歌"],["桃園","中壢","楊梅","富岡"]]
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
-        toolBar.sizeToFit()
-
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.donePicker))
-
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: true)
-        toolBar.isUserInteractionEnabled = true
-        
-        
+          
         pickerView.delegate = self
         pickerView.dataSource = self
         
         startTextField.inputView = pickerView
         endTextField.inputView = pickerView
-        startTextField.inputAccessoryView = toolBar
-        endTextField.inputAccessoryView = toolBar
+        startTextField.inputAccessoryView = createToolBar()
+        endTextField.inputAccessoryView = createToolBar()
         
         startTextField.borderStyle = .roundedRect
         startTextField.backgroundColor = .secondarySystemBackground
@@ -106,25 +93,29 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         
     }
     @objc func donePicker() {
-
+        
         startTextField.resignFirstResponder()
         endTextField.resignFirstResponder()
-
+        
     }
-}
-
-extension UIToolbar {
-    func barSetting() {
-        self.barStyle = UIBarStyle.default
-        self.isTranslucent = true
-        self.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
-        self.sizeToFit()
-
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(HomeViewController.donePicker))
+    
+    
+    
+    func createToolBar() -> UIToolbar {
+        var toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 142/255, green: 205/255, blue: 221/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(donePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(HomeViewController.donePicker))
-
-        self.setItems([cancelButton, spaceButton, doneButton], animated: true)
-        self.isUserInteractionEnabled = true
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(donePicker))
+        
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        
+        return toolBar
     }
+    
 }
