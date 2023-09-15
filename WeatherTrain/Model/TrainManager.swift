@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TrainManager {
+class TrainManager {
     var startStation: String = ""
     var endStation: String = ""
     var leaveTime: String = ""
@@ -36,7 +36,7 @@ struct TrainManager {
                  let deocder = JSONDecoder()
                  do {
                      let token = try deocder.decode(TokenData.self, from: safeData)
-                     searchTrainTimeFromStationAndTime(token: token.access_token, startStation: startStation, endStation: endStation, leaveTime: leaveTime)
+                     self.searchTrainTimeFromStationAndTime(token: token.access_token, startStation: self.startStation, endStation: self.endStation, leaveTime: self.leaveTime)
                  } catch {
                      print(error)
                  }
@@ -67,7 +67,7 @@ struct TrainManager {
             let decoder = JSONDecoder()
             do {
                 let trainData = try decoder.decode(TrainData.self, from: safeData)
-                delegate?.searchTime(trainData)
+                self.delegate?.searchTime(trainData)
                 print(trainData)
             } catch {
                 print("TrainManager Json有問題：\(error)")
