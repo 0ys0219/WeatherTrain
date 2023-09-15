@@ -11,14 +11,14 @@ class TrainTimeTableViewController: UITableViewController {
 
     
     
-    var text: String?
-    
+    var trainManager = TrainManager()
+    var trainDetails = [TrainModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+        trainManager.delegate = self
+        trainManager.getToken()
+       
     }
 
     // MARK: - Table view data source
@@ -30,14 +30,14 @@ class TrainTimeTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return trainDetails.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TrainTimeCell", for: indexPath)
 
-//        cell.textLabel?.text = "123"
+        cell.textLabel?.text = trainDetails[indexPath.row].startStation
         
 
         return cell
@@ -89,4 +89,20 @@ class TrainTimeTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension TrainTimeTableViewController: Train {
+    func searchTime(_ trainData: TrainData) {
+        DispatchQueue.main.async {
+            for train in trainData.TrainTimetables {
+                let startStation = train.StopTimes[0].StationName.Zh_tw
+                let startTime = train.StopTimes[0].DepartureTime
+                let endStation = train.StopTimes[1].StationName.Zh_tw
+                let endTime = train.StopTimes[1].ArrivalTime
+                self.trainDetails.append(TrainModel(startStation: startStation, endStation: endStation, startTime: startTime, endTime: endTime))
+            }
+            self.tableView.reloadData()
+        }
+        
+    }
 }

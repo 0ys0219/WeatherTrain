@@ -10,10 +10,12 @@ import Foundation
 struct TrainManager {
     
     
-    func searchTrainTime(with token: String)  {
+    var delegate: Train?
+    
+    func searchTrainTimeFromtoken(with token: String)  {
         
        
-        let urlString = URL(string: "https://tdx.transportdata.tw/api/basic/v3/Rail/TRA/DailyTrainTimetable/OD/1120/to/1000/2023-09-11?%24select=StopTimes&%24top=2&%24format=JSON")
+        let urlString = URL(string: "https://tdx.transportdata.tw/api/basic/v3/Rail/TRA/DailyTrainTimetable/OD/1120/to/1000/2023-09-20?%24select=StopTimes&%24top=2&%24format=JSON")
         guard let url = urlString else {
             print("url失敗")
             return
@@ -41,11 +43,8 @@ struct TrainManager {
             do {
                 
                 let trainData = try decoder.decode(TrainData.self, from: safeData)
-                print(trainData)
-//                var trainModel = TrainModel()
-//                trainModel.startTime = trainData.TrainTimetables[0].StopTimes[0].DepartureTime
-//                trainModel.endTime = trainData.TrainTimetables[0].StopTimes[1].ArrivalTime
-//                print(trainModel.startTime,trainModel.endTime)
+                delegate?.searchTime(trainData)
+
                 
                 
             } catch {
@@ -66,7 +65,6 @@ struct TrainManager {
         let postData = NSMutableData(data: "grant_type=client_credentials".data(using: String.Encoding.utf8)!)
         postData.append("&client_id=lmt860219-1225f581-083c-4001".data(using: String.Encoding.utf8)!)
         postData.append("&client_secret=186934af-15df-40d1-86f8-5be32263e9a5".data(using: String.Encoding.utf8)!)
-//        postData.append("&audience=YOUR_API_IDENTIFIER".data(using: String.Encoding.utf8)!)
 
         let request = NSMutableURLRequest(url: NSURL(string: "https://tdx.transportdata.tw/auth/realms/TDXConnect/protocol/openid-connect/token")! as URL,
                                                 cachePolicy: .useProtocolCachePolicy,
@@ -85,7 +83,7 @@ struct TrainManager {
                   do {
                       let token = try deocder.decode(Token.self, from: safeData)
                       
-                      searchTrainTime(with: token.access_token)
+                      searchTrainTimeFromtoken(with: token.access_token)
                       
                   } catch {
                       print(error)
@@ -106,11 +104,10 @@ struct Token: Codable {
 }
 
 
-struct TrainModel {
-    var stationID: String = ""
-    var stationName: String = ""
-    var startStation: String = ""
-    var endStation: String = ""
-    var startTime: String = ""
-    var endTime: String = ""
+
+
+
+protocol Train {
+    func searchTime(_ trainData: TrainData)
 }
+

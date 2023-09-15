@@ -20,10 +20,12 @@ class HomeViewController: UIViewController {
     
     let city = ["台北","新北","桃園"]
     let station = [["台北","萬華"],["板橋","樹林","鶯歌"],["桃園","中壢","楊梅","富岡"]]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-                
+        
+        
 
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -64,13 +66,15 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func searchTrainPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "goToTrainTime", sender: self)
+                print("button")
+        
+            performSegue(withIdentifier: "goToTrainTime", sender: self)
+        
+       
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? TrainTimeTableViewController {
-//            let s = TrainManager()
-//            s.getToken()
-//            destinationVC.text = 
+            destinationVC.trainManager.getToken()
         }
     }
 }
@@ -111,16 +115,16 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         let cityRow = pickerView.selectedRow(inComponent: 0)
         let stationRow = pickerView.selectedRow(inComponent: 1)
         if startTextField.isEditing {
-            startTextField.text = station[cityRow][stationRow]
+            startTextField.text = station[cityRow][0]
         } else if endTextField.isEditing {
             
-            endTextField.text = station[cityRow][stationRow]
+            endTextField.text = station[cityRow][0]
         }
         
     }
       
     func createToolBar() -> UIToolbar {
-        var toolBar = UIToolbar()
+        let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor(red: 130/255, green: 150/255, blue: 255/255, alpha: 1)
@@ -150,3 +154,6 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         
     }
 }
+
+
+
