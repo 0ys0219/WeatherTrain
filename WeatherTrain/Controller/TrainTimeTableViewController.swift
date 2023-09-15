@@ -11,13 +11,13 @@ class TrainTimeTableViewController: UITableViewController {
 
     
     
-    var trainManager = TrainManager()
+    var trainManager = TrainManager.shared
     var trainDetails = [TrainModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         trainManager.delegate = self
-        trainManager.getToken()
+        trainManager.getResultFromSearchTrainTime()
        
     }
 

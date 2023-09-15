@@ -1,20 +1,20 @@
 //
-//  TrainManager.swift
+//  Station.swift
 //  WeatherTrain
 //
-//  Created by 林育生 on 2023/9/11.
+//  Created by 林育生 on 2023/9/15.
 //
 
 import Foundation
 
-struct TrainManager {
-    var startStation: String = ""
-    var endStation: String = ""
-    var leaveTime: String = ""
-    static var shared = TrainManager()
-    var delegate: Train?
-      
-    func getResultFromSearchTrainTime()  {
+struct StationManager {
+    
+    var delegate: Station?
+
+    
+    let urlStr = "https://tdx.transportdata.tw/api/basic/v3/Rail/TRA/Station?%24select=StationID%2CStationName%2C%20StationAddress&%24format=JSON"
+    
+    func getAllStationInfo()  {
        let headers = ["content-type": "application/x-www-form-urlencoded"]
        let postData = NSMutableData(data: "grant_type=client_credentials".data(using: String.Encoding.utf8)!)
        postData.append("&client_id=lmt860219-1225f581-083c-4001".data(using: String.Encoding.utf8)!)
@@ -36,7 +36,7 @@ struct TrainManager {
                  let deocder = JSONDecoder()
                  do {
                      let token = try deocder.decode(TokenData.self, from: safeData)
-                     searchTrainTimeFromStationAndTime(token: token.access_token, startStation: startStation, endStation: endStation, leaveTime: leaveTime)
+                     fetchAllStation(token: token.access_token)
                  } catch {
                      print(error)
                  }
@@ -47,13 +47,9 @@ struct TrainManager {
    }
     
     
-    func searchTrainTimeFromStationAndTime(token: String, startStation: String, endStation: String, leaveTime: String)  {
-        let urlString = URL(string: "https://tdx.transportdata.tw/api/basic/v3/Rail/TRA/DailyTrainTimetable/OD/\(startStation)/to/\(endStation)/\(leaveTime)?%24select=StopTimes&%24top=2&%24format=JSON")
+    func fetchAllStation(token: String) {
+        guard let url = URL(string: urlStr) else { return }
         
-        guard let url = urlString else {
-            print("url失敗")
-            return
-        }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -63,23 +59,20 @@ struct TrainManager {
         let task = session.dataTask(with: request) { data, response, error in
             if  let e = error { print(e) }
             guard let safeData = data else { return }
-            print(startStation,endStation,leaveTime)
+ 
             let decoder = JSONDecoder()
             do {
-                let trainData = try decoder.decode(TrainData.self, from: safeData)
-                delegate?.searchTime(trainData)
-                print(trainData)
+                let stationData = try decoder.decode(StationData.self, from: safeData)
+                delegate?.updateAllStationToArray(stationData)
+                
             } catch {
-                print("TrainManager Json有問題：\(error)")
+                print("StationManager Json有問題：\(error)")
             }
         }
         task.resume()
     }
-
 }
 
-
-protocol Train {
-    func searchTime(_ trainData: TrainData)
+protocol Station {
+    func updateAllStationToArray(_ stationData: StationData)
 }
-

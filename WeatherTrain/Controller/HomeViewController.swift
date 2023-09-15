@@ -17,16 +17,15 @@ class HomeViewController: UIViewController {
     
     var pickerView = UIPickerView()
     var datePicker = UIDatePicker()
+    var stationManager = StationManager()
+    let citys = ["基隆市","新北市","臺北市","桃園市","新竹縣","新竹市","苗栗縣","臺中市","彰化縣","南投縣","雲林縣","嘉義縣","嘉義市","臺南市","高雄市","屏東縣","臺東縣","花蓮縣","宜蘭縣"]
     
-    let city = ["台北","新北","桃園"]
-    let station = [["台北","萬華"],["板橋","樹林","鶯歌"],["桃園","中壢","楊梅","富岡"]]
-    
+    var stationDict: Dictionary<String,StationModel> = [:]
+    var cityDict: Dictionary<String,[String]> = [:]
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-
+        stationManager.delegate = self
+        stationManager.getAllStationInfo()
         pickerView.delegate = self
         pickerView.dataSource = self
         
@@ -74,7 +73,18 @@ class HomeViewController: UIViewController {
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? TrainTimeTableViewController {
-            destinationVC.trainManager.getToken()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let leaveTimeStr = formatter.string(from: datePicker.date)
+            
+            if let startStation = startTextField.text, let endStation = endTextField.text {
+                TrainManager.shared.startStation = stationDict[startStation]!.ID
+                TrainManager.shared.endStation = stationDict[endStation]!.ID
+                TrainManager.shared.leaveTime = leaveTimeStr
+                
+                print(TrainManager.shared)
+                
+            }
         }
     }
 }
@@ -87,21 +97,21 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         if component == 0 {
-            return city.count
+            return citys.count
         } else {
             let selectedRow = pickerView.selectedRow(inComponent: 0)
             
-            return station[selectedRow].count
+            return cityDict[citys[selectedRow]]?.count ?? 0
             
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
-            return city[row]
+            return citys[row]
         } else {
             let selectedRow = pickerView.selectedRow(inComponent: 0)
-            return station[selectedRow][row]
+            return cityDict[citys[selectedRow]]?[row]
             
         }
     }
@@ -115,10 +125,10 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         let cityRow = pickerView.selectedRow(inComponent: 0)
         let stationRow = pickerView.selectedRow(inComponent: 1)
         if startTextField.isEditing {
-            startTextField.text = station[cityRow][0]
+            startTextField.text = cityDict[citys[cityRow]]?[stationRow]
         } else if endTextField.isEditing {
             
-            endTextField.text = station[cityRow][0]
+            endTextField.text = cityDict[citys[cityRow]]?[stationRow]
         }
         
     }
@@ -155,5 +165,19 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 }
 
-
+extension HomeViewController: Station {
+    func updateAllStationToArray(_ stationData: StationData) {
+        for station in stationData.Stations {
+            stationDict[station.StationName.Zh_tw] = StationModel(name: station.StationName.Zh_tw, ID: station.StationID, address: station.StationAddress)
+            
+            for city in citys {
+                if station.StationAddress.contains(city) {
+                    cityDict[city, default: []].append(station.StationName.Zh_tw)
+                }
+            }
+        }
+        print(stationDict)
+        print(cityDict)
+    }
+}
 
