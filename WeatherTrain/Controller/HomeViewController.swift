@@ -29,12 +29,8 @@ class HomeViewController: UIViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
         
-        datePicker.datePickerMode = .dateAndTime
-        datePicker.minimumDate = .now
-        datePicker.date = .now
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.locale = Locale(identifier: "zh_GB")
-        datePicker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
+        
+        datePickerSetting()
         
         
         leaveTimeTextField.backgroundColor = .secondarySystemBackground
@@ -50,6 +46,7 @@ class HomeViewController: UIViewController {
         
         startTextField.borderStyle = .roundedRect
         startTextField.backgroundColor = .secondarySystemBackground
+        
         endTextField.borderStyle = .roundedRect
         endTextField.backgroundColor = .secondarySystemBackground
        
@@ -82,10 +79,25 @@ class HomeViewController: UIViewController {
                 TrainManager.shared.endStation = stationDict[endStation]!.ID
                 TrainManager.shared.leaveTime = leaveTimeStr
                 
-                print(TrainManager.shared)
+//                print(TrainManager.shared)
                 
             }
         }
+    }
+    
+    func datePickerSetting() {
+        datePicker.datePickerMode = .dateAndTime
+        datePicker.minimumDate = .now
+        datePicker.date = .now
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.locale = Locale(identifier: "zh_GB")
+        datePicker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
+        let calender = Calendar.current
+        let components = calender.dateComponents([.day,.month,.year,.hour,.minute],from: self.datePicker.date)
+        guard let year = components.year, let month = components.month, let day = components.day, let hour = components.hour, let minutes = components.minute else {
+            fatalError("時間有誤")
+        }
+        leaveTimeTextField.text = "\(year)年\(month)月\(day)日 \(hour)點\(minutes)分 出發"
     }
 }
 
@@ -176,8 +188,8 @@ extension HomeViewController: Station {
                 }
             }
         }
-        print(stationDict)
-        print(cityDict)
+//        print(stationDict)
+//        print(cityDict)
     }
 }
 

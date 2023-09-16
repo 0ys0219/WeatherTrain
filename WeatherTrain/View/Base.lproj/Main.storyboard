@@ -50,9 +50,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLP-gv-xj9">
-                                <rect key="frame" x="167" y="145" width="59" height="35"/>
+                                <rect key="frame" x="167" y="145" width="59" height="42.666666666666657"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="切換"/>
+                                <buttonConfiguration key="configuration" style="plain" title="⇌">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="23"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="switchStationPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jhn-2p-hKd"/>
                                 </connections>
@@ -164,7 +166,7 @@
     <resources>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <namedColor name="AccentColor">
-            <color red="0.77584809064865112" green="0.33404338359832764" blue="0.23028363287448883" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77600002288818359" green="0.33399999141693115" blue="0.23000000417232513" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

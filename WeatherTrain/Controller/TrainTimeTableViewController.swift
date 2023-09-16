@@ -13,12 +13,15 @@ class TrainTimeTableViewController: UITableViewController {
     
     var trainManager = TrainManager.shared
     var trainDetails = [TrainModel]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         trainManager.delegate = self
         trainManager.getResultFromSearchTrainTime()
-       
+        
+        
+        tableView.register(UINib(nibName: "TrainDetailCell", bundle: nil), forCellReuseIdentifier: "TrainDetailCell")
+        tableView.separatorStyle = .none
+        tableView.rowHeight = 40
     }
 
     // MARK: - Table view data source
@@ -35,9 +38,16 @@ class TrainTimeTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TrainTimeCell", for: indexPath)
-
-        cell.textLabel?.text = trainDetails[indexPath.row].startStation
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TrainDetailCell", for: indexPath) as! TrainDetailCell
+        
+        cell.startStation.text = trainDetails[indexPath.row].startStation
+        cell.startTime.text = trainDetails[indexPath.row].startTime
+        cell.endTime.text = trainDetails[indexPath.row].endTime
+        cell.endStation.text = trainDetails[indexPath.row].endStation
+        cell.selectionStyle = .none
+        if indexPath.row % 2 == 0 {
+            cell.backgroundColor = .secondarySystemBackground
+        }
         
 
         return cell
@@ -94,13 +104,15 @@ class TrainTimeTableViewController: UITableViewController {
 extension TrainTimeTableViewController: Train {
     func searchTime(_ trainData: TrainData) {
         DispatchQueue.main.async {
+            var array = [TrainModel]()
             for train in trainData.TrainTimetables {
                 let startStation = train.StopTimes[0].StationName.Zh_tw
                 let startTime = train.StopTimes[0].DepartureTime
                 let endStation = train.StopTimes[1].StationName.Zh_tw
                 let endTime = train.StopTimes[1].ArrivalTime
-                self.trainDetails.append(TrainModel(startStation: startStation, endStation: endStation, startTime: startTime, endTime: endTime))
+                array.append(TrainModel(startStation: startStation, endStation: endStation, startTime: startTime, endTime: endTime))
             }
+            self.trainDetails = array.sorted(by: { $0.startTime < $1.startTime })
             self.tableView.reloadData()
         }
         

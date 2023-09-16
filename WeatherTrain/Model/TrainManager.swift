@@ -48,7 +48,7 @@ class TrainManager {
     
     
     func searchTrainTimeFromStationAndTime(token: String, startStation: String, endStation: String, leaveTime: String)  {
-        let urlString = URL(string: "https://tdx.transportdata.tw/api/basic/v3/Rail/TRA/DailyTrainTimetable/OD/\(startStation)/to/\(endStation)/\(leaveTime)?%24select=StopTimes&%24top=2&%24format=JSON")
+        let urlString = URL(string: "https://tdx.transportdata.tw/api/basic/v3/Rail/TRA/DailyTrainTimetable/OD/\(startStation)/to/\(endStation)/\(leaveTime)?%24select=StopTimes&%24format=JSON")
         
         guard let url = urlString else {
             print("url失敗")
@@ -68,7 +68,7 @@ class TrainManager {
             do {
                 let trainData = try decoder.decode(TrainData.self, from: safeData)
                 self.delegate?.searchTime(trainData)
-                print(trainData)
+//                print(trainData)
             } catch {
                 print("TrainManager Json有問題：\(error)")
             }

@@ -19,6 +19,8 @@
 		7BC941672AB4A46500A103CF /* StationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC941662AB4A46500A103CF /* StationData.swift */; };
 		7BC941692AB4A70D00A103CF /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC941682AB4A70D00A103CF /* TokenData.swift */; };
 		7BC9416D2AB4C67E00A103CF /* StationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC9416C2AB4C67E00A103CF /* StationModel.swift */; };
+		7BC941702AB628FB00A103CF /* TrainDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC9416E2AB628FB00A103CF /* TrainDetailCell.swift */; };
+		7BC941712AB628FB00A103CF /* TrainDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BC9416F2AB628FB00A103CF /* TrainDetailCell.xib */; };
 		7BDC9F762AAE29F400D97E2A /* TrainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC9F752AAE29F400D97E2A /* TrainData.swift */; };
 		7BDC9F782AAE3C7300D97E2A /* TrainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BDC9F772AAE3C7300D97E2A /* TrainManager.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +40,8 @@
 		7BC941662AB4A46500A103CF /* StationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationData.swift; sourceTree = "<group>"; };
 		7BC941682AB4A70D00A103CF /* TokenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
 		7BC9416C2AB4C67E00A103CF /* StationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationModel.swift; sourceTree = "<group>"; };
+		7BC9416E2AB628FB00A103CF /* TrainDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDetailCell.swift; sourceTree = "<group>"; };
+		7BC9416F2AB628FB00A103CF /* TrainDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrainDetailCell.xib; sourceTree = "<group>"; };
 		7BDC9F752AAE29F400D97E2A /* TrainData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainData.swift; sourceTree = "<group>"; };
 		7BDC9F772AAE3C7300D97E2A /* TrainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,6 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				7B3FBB3A2AACB16800E27CA1 /* Main.storyboard */,
+				7BC9416E2AB628FB00A103CF /* TrainDetailCell.swift */,
+				7BC9416F2AB628FB00A103CF /* TrainDetailCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -174,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B3FBB412AACB16A00E27CA1 /* LaunchScreen.storyboard in Resources */,
+				7BC941712AB628FB00A103CF /* TrainDetailCell.xib in Resources */,
 				7B3FBB3E2AACB16A00E27CA1 /* Assets.xcassets in Resources */,
 				7B3FBB3C2AACB16800E27CA1 /* Main.storyboard in Resources */,
 			);
@@ -191,6 +198,7 @@
 				7BC941672AB4A46500A103CF /* StationData.swift in Sources */,
 				7B3FBB492AACB30400E27CA1 /* TrainTimeTableViewController.swift in Sources */,
 				7BC941652AB49E1F00A103CF /* StationManager.swift in Sources */,
+				7BC941702AB628FB00A103CF /* TrainDetailCell.swift in Sources */,
 				7BDC9F762AAE29F400D97E2A /* TrainData.swift in Sources */,
 				7BC941692AB4A70D00A103CF /* TokenData.swift in Sources */,
 				7BC941632AB4513700A103CF /* TrainModel.swift in Sources */,
